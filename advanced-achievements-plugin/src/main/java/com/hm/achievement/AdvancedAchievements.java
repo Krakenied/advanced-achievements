@@ -26,7 +26,7 @@ import dagger.Component;
  * Bukkit instantiates an instance of this class and calls the onEnable and onDisable methods when relevant. This class
  * is the root of the dependency graph constructed with Dagger and is used to bind the instance created by Bukkit with
  * the rest of the plugin modules. It delegates the actual enabling and disabling operations to the PluginLoader class.
- * 
+ *
  * @author Pyves
  */
 public class AdvancedAchievements extends JavaPlugin {

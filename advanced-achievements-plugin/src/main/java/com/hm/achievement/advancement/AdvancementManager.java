@@ -31,7 +31,7 @@ import com.hm.achievement.utils.StringHelper;
 
 /**
  * Class in charge of registering achievements as advancements.
- * 
+ *
  * @author Pyves
  */
 @SuppressWarnings("deprecation")
@@ -154,7 +154,7 @@ public class AdvancementManager implements Reloadable {
 
 	/**
 	 * Registers an individual advancement.
-	 * 
+	 *
 	 * @param item
 	 * @param achievement
 	 * @param parentKey

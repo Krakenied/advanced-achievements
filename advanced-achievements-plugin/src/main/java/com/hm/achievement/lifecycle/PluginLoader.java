@@ -242,7 +242,7 @@ public class PluginLoader {
 	/**
 	 * Registers permissions that depend on the user's configuration file (for MultipleAchievements; for instance for
 	 * stone breaks, achievement.count.breaks.stone will be registered).
-	 * 
+	 *
 	 * Bukkit only allows permissions to be set once, check that the permission node is null to ensure it was not
 	 * previously set, before an /aach reload for example.
 	 */

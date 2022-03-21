@@ -13,7 +13,7 @@ import org.bukkit.potion.PotionType;
 
 /**
  * Class providing a few logging helper methods to retrieve Material instances via their names.
- * 
+ *
  * @author Pyves
  */
 @Singleton
@@ -28,7 +28,7 @@ public class MaterialHelper {
 
 	/**
 	 * Tries to match a name to a Material instance.
-	 * 
+	 *
 	 * @param name the string to match
 	 * @param usageLocation used for logging
 	 * @return a Material wrapped inside an Optional or an empty Optional.
@@ -39,7 +39,7 @@ public class MaterialHelper {
 
 	/**
 	 * Tries to match a name to a Material instance and returns a default value if not found.
-	 * 
+	 *
 	 * @param name the string to match
 	 * @param defaultMaterial returned if name could not be matched
 	 * @param usageLocation used for logging
@@ -64,7 +64,7 @@ public class MaterialHelper {
 
 	/**
 	 * Determines whether an item is any Material.POTION apart from water.
-	 * 
+	 *
 	 * @param itemStack
 	 * @return true if the item is a non-water potion, false otherwise
 	 */

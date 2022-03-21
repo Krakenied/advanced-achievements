@@ -33,7 +33,7 @@ public class YamlUpdater {
 	/**
 	 * Updates user configurations by appending any YAML sections that are present in the default files shipped with the
 	 * plugin. Comments, if any, are also included. If file updates are performed, the config object is reloaded.
-	 * 
+	 *
 	 * @param defaultConfigName
 	 * @param userConfigName
 	 * @param userConfig

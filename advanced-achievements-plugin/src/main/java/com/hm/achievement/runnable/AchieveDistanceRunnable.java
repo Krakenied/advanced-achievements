@@ -25,7 +25,7 @@ import com.hm.achievement.utils.StatisticIncreaseHandler;
 
 /**
  * Class used to monitor distances travelled by players for the different available categories.
- * 
+ *
  * @author Pyves
  *
  */
@@ -67,7 +67,7 @@ public class AchieveDistanceRunnable extends StatisticIncreaseHandler implements
 
 	/**
 	 * Update distances and store them into server's memory until player disconnects.
-	 * 
+	 *
 	 * @param player
 	 */
 	private void validateMovementAndUpdateDistance(Player player) {
@@ -110,10 +110,10 @@ public class AchieveDistanceRunnable extends StatisticIncreaseHandler implements
 	/**
 	 * Calculates the difference between the player's last location and his current one. May ignore the vertical axis or
 	 * not depending on configuration..
-	 * 
+	 *
 	 * @param previousLocation
 	 * @param currentLocation
-	 * 
+	 *
 	 * @return difference
 	 */
 	private int getDistanceDifference(Location previousLocation, Location currentLocation) {
@@ -128,7 +128,7 @@ public class AchieveDistanceRunnable extends StatisticIncreaseHandler implements
 
 	/**
 	 * Updates distance if all conditions are met and awards achievements if necessary.
-	 * 
+	 *
 	 * @param difference
 	 * @param player
 	 * @param category

@@ -7,7 +7,7 @@ import org.apache.commons.text.StringEscapeUtils;
 
 /**
  * Class used to generate JSON strings for advancements.
- * 
+ *
  * @author Pyves
  */
 public class AdvancementJsonHelper {
