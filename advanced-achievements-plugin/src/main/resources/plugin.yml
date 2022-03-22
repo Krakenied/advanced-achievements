@@ -131,6 +131,7 @@ permissions:
       achievement.count.raidswon: true
       achievement.count.riptides: true
       achievement.count.booksedited: true
+      achievement.count.advancedachievementsreceived: true
       achievement.count.places.*: true
       achievement.count.breaks.*: true
       achievement.count.kills.*: true
@@ -272,6 +273,9 @@ permissions:
     default: true
   achievement.count.booksedited:
     description: Allows books edited statistics in database to increase.
+    default: true
+  achievement.count.advancedachievementsreceived:
+    description: Allows advanced achievements received statistics in database to increase.
     default: true
   achievement.count.places.*:
     description: Allows places statistics in database to increase.

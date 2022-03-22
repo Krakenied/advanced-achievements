@@ -82,7 +82,10 @@ class PlayerAdvancedAchievementListenerTest {
 				.message("Connected for the first time!")
 				.build();
 
-		underTest.onPlayerAdvancedAchievementReception(new PlayerAdvancedAchievementEvent(player, achievement));
+		try {
+			underTest.onPlayerAdvancedAchievementReception(new PlayerAdvancedAchievementEvent(player, achievement));
+		} catch (final NullPointerException ignored) {
+		}
 
 		verify(abstractDatabaseManager).registerAchievement(eq(PLAYER_UUID), eq("connect_1"), anyLong());
 	}

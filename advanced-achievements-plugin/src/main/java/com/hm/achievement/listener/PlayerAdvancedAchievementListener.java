@@ -50,6 +50,7 @@ import com.hm.achievement.lifecycle.Reloadable;
 import com.hm.achievement.utils.ColorHelper;
 import com.hm.achievement.utils.FancyMessageSender;
 import com.hm.achievement.utils.PlayerAdvancedAchievementEvent;
+import com.hm.achievement.utils.PostPlayerAdvancedAchievementEvent;
 import com.hm.achievement.utils.StringHelper;
 
 import net.md_5.bungee.api.ChatMessageType;
@@ -190,6 +191,8 @@ public class PlayerAdvancedAchievementListener implements Listener, Reloadable {
 		if (cacheManager.getPlayerAchievements(player.getUniqueId()).size() == achievementMap.getAll().size()) {
 			handleAllAchievementsReceived(player);
 		}
+
+		Bukkit.getPluginManager().callEvent(new PostPlayerAdvancedAchievementEvent(player, achievement));
 	}
 
 	/**

@@ -11,6 +11,7 @@ import com.hm.achievement.gui.GUIItems;
 import com.hm.achievement.gui.MainGUI;
 import com.hm.achievement.lifecycle.Reloadable;
 import com.hm.achievement.listener.PlayerAdvancedAchievementListener;
+import com.hm.achievement.listener.statistics.AdvancedAchievementsReceivedListener;
 import com.hm.achievement.listener.statistics.AdvancementsCompletedListener;
 import com.hm.achievement.listener.statistics.AnvilsListener;
 import com.hm.achievement.listener.statistics.ArrowsListener;
@@ -282,6 +283,11 @@ public interface ReloadableModule {
 	@Binds
 	@IntoSet
 	Reloadable bindBooksEditedListener(BooksEditedListener booksEditedListener);
+
+	@Binds
+	@IntoSet
+	Reloadable bindAdvancedAchievementsReceivedListener(
+			AdvancedAchievementsReceivedListener advancedAchievementsReceivedListener);
 
 	@Binds
 	@IntoSet
