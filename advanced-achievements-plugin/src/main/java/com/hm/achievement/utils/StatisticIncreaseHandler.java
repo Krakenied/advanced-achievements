@@ -35,6 +35,7 @@ public class StatisticIncreaseHandler implements Reloadable {
 	private boolean configRestrictCreative;
 	private boolean configRestrictSpectator;
 	private boolean configRestrictAdventure;
+	private boolean configDoNotRegisterPermissions;
 	private Set<String> configExcludedWorlds;
 
 	@Inject
@@ -50,6 +51,7 @@ public class StatisticIncreaseHandler implements Reloadable {
 		configRestrictCreative = mainConfig.getBoolean("RestrictCreative");
 		configRestrictSpectator = mainConfig.getBoolean("RestrictSpectator");
 		configRestrictAdventure = mainConfig.getBoolean("RestrictAdventure");
+		configDoNotRegisterPermissions = mainConfig.getBoolean("DoNotRegisterPermissions");
 		configExcludedWorlds = new HashSet<>(mainConfig.getStringList("ExcludedWorlds"));
 	}
 
@@ -89,7 +91,7 @@ public class StatisticIncreaseHandler implements Reloadable {
 			}
 			// Check whether player has received the achievement and has permission to do so.
 			if (!cacheManager.hasPlayerAchievement(player.getUniqueId(), achievement.getName())
-					&& player.hasPermission("achievement." + achievement.getName())) {
+					&& (configDoNotRegisterPermissions || player.hasPermission("achievement." + achievement.getName()))) {
 				Bukkit.getPluginManager().callEvent(new PlayerAdvancedAchievementEvent(player, achievement));
 			}
 		}
@@ -105,7 +107,7 @@ public class StatisticIncreaseHandler implements Reloadable {
 	protected boolean shouldIncreaseBeTakenIntoAccount(Player player, Category category) {
 		GameMode gameMode = player.getGameMode();
 		return !player.hasMetadata("NPC")
-				&& player.hasPermission(category.toPermName())
+				&& (configDoNotRegisterPermissions || player.hasPermission(category.toPermName()))
 				&& (!configRestrictCreative || gameMode != GameMode.CREATIVE)
 				&& (!configRestrictSpectator || gameMode != GameMode.SPECTATOR)
 				&& (!configRestrictAdventure || gameMode != GameMode.ADVENTURE)
