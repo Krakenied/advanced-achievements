@@ -247,6 +247,11 @@ public class PluginLoader {
 	 * previously set, before an /aach reload for example.
 	 */
 	private void registerPermissions() {
+		boolean configDoNotRegisterPermissions = mainConfig.getBoolean("DoNotRegisterPermissions");
+		if (configDoNotRegisterPermissions) {
+			return;
+		}
+
 		logger.info("Registering permissions...");
 
 		PluginManager pluginManager = Bukkit.getPluginManager();

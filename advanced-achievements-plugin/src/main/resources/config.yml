@@ -412,6 +412,9 @@ DistanceTaskInterval: 5
 # Enable if you use BungeeCord or if your database is shared by multiple servers. Do a full server restart.
 BungeeMode: false
 
+# Enable to make AdvancedAchievements load faster, by not registering auto-generated achievements permissions.
+DoNotRegisterPermissions: false
+
 #======================================================================================================================#
 #                                             MULTIPLE ACTION ACHIEVEMENTS                                             #
 #                                                                                                                      #
