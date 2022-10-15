@@ -35,7 +35,7 @@ public class StatisticIncreaseHandler implements Reloadable {
 	private boolean configRestrictCreative;
 	private boolean configRestrictSpectator;
 	private boolean configRestrictAdventure;
-	private boolean configDoNotRegisterPermissions;
+	protected boolean configDoNotRegisterPermissions;
 	private Set<String> configExcludedWorlds;
 
 	@Inject

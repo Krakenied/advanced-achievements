@@ -1,10 +1,6 @@
 package com.hm.achievement.listener.statistics;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -39,7 +35,7 @@ public class PlayerCommandsListener extends AbstractListener {
 		Set<String> matchingSubcategories = new HashSet<>();
 		for (String groupedPrefixes : subcategories) {
 			for (String prefix : StringUtils.split(groupedPrefixes, '|')) {
-				if (player.hasPermission(category.toChildPermName(StringUtils.deleteWhitespace(prefix)))) {
+				if (configDoNotRegisterPermissions || player.hasPermission(category.toChildPermName(StringUtils.deleteWhitespace(prefix)))) {
 					for (String equivalentCommand : equivalentCommands) {
 						if (equivalentCommand.startsWith(prefix)) {
 							matchingSubcategories.add(groupedPrefixes);
@@ -72,8 +68,8 @@ public class PlayerCommandsListener extends AbstractListener {
 		}
 
 		PluginCommand pluginCommand = Bukkit.getPluginCommand(commandName);
-		if (pluginCommand == null || pluginCommand.getAliases() == null) {
-			return Arrays.asList(commandName.toLowerCase() + commandParameters);
+		if (pluginCommand == null || pluginCommand.getAliases().isEmpty()) {
+			return Collections.singletonList(commandName.toLowerCase() + commandParameters);
 		}
 
 		List<String> equivalentCommands = new ArrayList<>(pluginCommand.getAliases().size() + 1);

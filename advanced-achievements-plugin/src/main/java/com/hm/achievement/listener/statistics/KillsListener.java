@@ -48,18 +48,18 @@ public class KillsListener extends AbstractListener {
 
 		Set<String> subcategories = new HashSet<>();
 
-		if (player.hasPermission(category.toChildPermName(mobType))) {
+		if (configDoNotRegisterPermissions || player.hasPermission(category.toChildPermName(mobType))) {
 			addMatchingSubcategories(subcategories, mobType);
 		}
 
 		if (entity.getCustomName() != null
-				&& player.hasPermission(category.toChildPermName(StringUtils.deleteWhitespace(entity.getCustomName())))) {
+				&& (configDoNotRegisterPermissions || player.hasPermission(category.toChildPermName(StringUtils.deleteWhitespace(entity.getCustomName()))))) {
 			addMatchingSubcategories(subcategories, entity.getCustomName());
 		}
 
 		if (entity instanceof Player) {
 			String specificPlayer = "specificplayer-" + entity.getUniqueId();
-			if (player.hasPermission(category.toChildPermName(specificPlayer))) {
+			if (configDoNotRegisterPermissions || player.hasPermission(category.toChildPermName(specificPlayer))) {
 				addMatchingSubcategories(subcategories, specificPlayer);
 			}
 		}

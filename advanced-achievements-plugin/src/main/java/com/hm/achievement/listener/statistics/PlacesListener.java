@@ -43,14 +43,14 @@ public class PlacesListener extends AbstractListener {
 		Set<String> subcategories = new HashSet<>();
 
 		String blockName = placedItem.getType().name().toLowerCase();
-		if (player.hasPermission(category.toChildPermName(blockName))) {
+		if (configDoNotRegisterPermissions || player.hasPermission(category.toChildPermName(blockName))) {
 			addMatchingSubcategories(subcategories, blockName);
 		}
 
 		ItemMeta itemMeta = placedItem.getItemMeta();
 		if (itemMeta != null && itemMeta.hasDisplayName()) {
 			String displayName = itemMeta.getDisplayName();
-			if (player.hasPermission(category.toChildPermName(StringUtils.deleteWhitespace(displayName)))) {
+			if (configDoNotRegisterPermissions || player.hasPermission(category.toChildPermName(StringUtils.deleteWhitespace(displayName)))) {
 				addMatchingSubcategories(subcategories, displayName);
 			}
 		}

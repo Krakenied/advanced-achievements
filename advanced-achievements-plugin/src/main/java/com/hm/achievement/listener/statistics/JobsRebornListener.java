@@ -39,7 +39,7 @@ public class JobsRebornListener extends AbstractListener {
 		}
 
 		String jobName = event.getJob().getJobFullName().toLowerCase();
-		if (!player.hasPermission(category.toChildPermName(jobName))) {
+		if (!configDoNotRegisterPermissions && !player.hasPermission(category.toChildPermName(jobName))) {
 			return;
 		}
 
