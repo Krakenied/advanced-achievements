@@ -53,7 +53,8 @@ public class KillsListener extends AbstractListener {
 		}
 
 		if (entity.getCustomName() != null
-				&& (configDoNotRegisterPermissions || player.hasPermission(category.toChildPermName(StringUtils.deleteWhitespace(entity.getCustomName()))))) {
+				&& (configDoNotRegisterPermissions || player
+						.hasPermission(category.toChildPermName(StringUtils.deleteWhitespace(entity.getCustomName()))))) {
 			addMatchingSubcategories(subcategories, entity.getCustomName());
 		}
 

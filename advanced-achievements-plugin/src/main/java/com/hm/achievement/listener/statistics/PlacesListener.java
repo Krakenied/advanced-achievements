@@ -50,7 +50,8 @@ public class PlacesListener extends AbstractListener {
 		ItemMeta itemMeta = placedItem.getItemMeta();
 		if (itemMeta != null && itemMeta.hasDisplayName()) {
 			String displayName = itemMeta.getDisplayName();
-			if (configDoNotRegisterPermissions || player.hasPermission(category.toChildPermName(StringUtils.deleteWhitespace(displayName)))) {
+			if (configDoNotRegisterPermissions
+					|| player.hasPermission(category.toChildPermName(StringUtils.deleteWhitespace(displayName)))) {
 				addMatchingSubcategories(subcategories, displayName);
 			}
 		}
