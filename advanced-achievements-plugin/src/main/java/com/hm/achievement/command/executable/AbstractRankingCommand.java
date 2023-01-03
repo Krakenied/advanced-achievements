@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 import java.util.UUID;
 import java.util.logging.Logger;
 
+import com.hm.achievement.AdvancedAchievements;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.text.StringEscapeUtils;
 import org.bukkit.Bukkit;
@@ -37,6 +38,7 @@ public abstract class AbstractRankingCommand extends AbstractCommand {
 
 	private final Logger logger;
 	private final String languageKey;
+	private final AdvancedAchievements advancedAchievements;
 	private final AbstractDatabaseManager databaseManager;
 	private final SoundPlayer soundPlayer;
 
@@ -54,10 +56,12 @@ public abstract class AbstractRankingCommand extends AbstractCommand {
 	private long lastCacheUpdate = 0L;
 
 	AbstractRankingCommand(YamlConfiguration mainConfig, YamlConfiguration langConfig, StringBuilder pluginHeader,
-			Logger logger, String languageKey, AbstractDatabaseManager databaseManager, SoundPlayer soundPlayer) {
+			Logger logger, String languageKey, AdvancedAchievements advancedAchievements,
+			AbstractDatabaseManager databaseManager, SoundPlayer soundPlayer) {
 		super(mainConfig, langConfig, pluginHeader);
 		this.logger = logger;
 		this.languageKey = languageKey;
+		this.advancedAchievements = advancedAchievements;
 		this.databaseManager = databaseManager;
 		this.soundPlayer = soundPlayer;
 	}
@@ -79,42 +83,44 @@ public abstract class AbstractRankingCommand extends AbstractCommand {
 
 	@Override
 	public void onExecute(CommandSender sender, String[] args) {
-		if (System.currentTimeMillis() - lastCacheUpdate >= CACHE_EXPIRATION_DELAY) {
-			// Update cached data structures.
-			cachedSortedRankings = databaseManager.getTopList(getRankingStartTime());
-			cachedAchievementCounts = new ArrayList<>(cachedSortedRankings.values());
-			lastCacheUpdate = System.currentTimeMillis();
-		}
-
-		sender.sendMessage(langPeriodAchievement);
-
-		List<String> rankingMessages = getRankingMessages(sender);
-
-		// If config has top set at less than one page, don't use pagination.
-		if (configTopList < PER_PAGE) {
-			rankingMessages.forEach(sender::sendMessage);
-		} else {
-			int page = getPage(args);
-			CommandPagination pagination = new CommandPagination(rankingMessages, PER_PAGE, langConfig);
-			pagination.sendPage(page, sender);
-		}
-
-		if (sender instanceof Player) {
-			Integer achievementsCount = cachedSortedRankings.get(((Player) sender).getUniqueId().toString());
-			// If not entry in the map, player has not yet received an achievement for this period, not ranked.
-			if (achievementsCount == null) {
-				sender.sendMessage(langNotRanked);
-			} else {
-				// Rank is the first index in the list that has received as many achievements as the player.
-				int playerRank = cachedAchievementCounts.indexOf(achievementsCount) + 1;
-				// Launch effect if player is in top list.
-				if (playerRank <= configTopList) {
-					launchEffects((Player) sender);
-				}
-				sender.sendMessage(
-						langPlayerRank + playerRank + ChatColor.GRAY + "/" + configColor + cachedSortedRankings.size());
+		Bukkit.getScheduler().runTaskAsynchronously(this.advancedAchievements, () -> {
+			if (System.currentTimeMillis() - lastCacheUpdate >= CACHE_EXPIRATION_DELAY) {
+				// Update cached data structures.
+				cachedSortedRankings = databaseManager.getTopList(getRankingStartTime());
+				cachedAchievementCounts = new ArrayList<>(cachedSortedRankings.values());
+				lastCacheUpdate = System.currentTimeMillis();
 			}
-		}
+
+			sender.sendMessage(langPeriodAchievement);
+
+			List<String> rankingMessages = getRankingMessages(sender);
+
+			// If config has top set at less than one page, don't use pagination.
+			if (configTopList < PER_PAGE) {
+				rankingMessages.forEach(sender::sendMessage);
+			} else {
+				int page = getPage(args);
+				CommandPagination pagination = new CommandPagination(rankingMessages, PER_PAGE, langConfig);
+				pagination.sendPage(page, sender);
+			}
+
+			if (sender instanceof Player) {
+				Integer achievementsCount = cachedSortedRankings.get(((Player) sender).getUniqueId().toString());
+				// If not entry in the map, player has not yet received an achievement for this period, not ranked.
+				if (achievementsCount == null) {
+					sender.sendMessage(langNotRanked);
+				} else {
+					// Rank is the first index in the list that has received as many achievements as the player.
+					int playerRank = cachedAchievementCounts.indexOf(achievementsCount) + 1;
+					// Launch effect if player is in top list.
+					if (playerRank <= configTopList) {
+						launchEffects((Player) sender);
+					}
+					sender.sendMessage(
+							langPlayerRank + playerRank + ChatColor.GRAY + "/" + configColor + cachedSortedRankings.size());
+				}
+			}
+		});
 	}
 
 	private int getPage(String[] args) {

@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
+import com.hm.achievement.AdvancedAchievements;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.hm.achievement.db.AbstractDatabaseManager;
@@ -23,8 +24,10 @@ public class WeekCommand extends AbstractRankingCommand {
 
 	@Inject
 	public WeekCommand(@Named("main") YamlConfiguration mainConfig, @Named("lang") YamlConfiguration langConfig,
-			StringBuilder pluginHeader, Logger logger, AbstractDatabaseManager databaseManager, SoundPlayer soundPlayer) {
-		super(mainConfig, langConfig, pluginHeader, logger, "week-achievement", databaseManager, soundPlayer);
+			StringBuilder pluginHeader, Logger logger, AdvancedAchievements advancedAchievements,
+			AbstractDatabaseManager databaseManager, SoundPlayer soundPlayer) {
+		super(mainConfig, langConfig, pluginHeader, logger, "week-achievement", advancedAchievements, databaseManager,
+				soundPlayer);
 	}
 
 	@Override
